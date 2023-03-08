@@ -17,8 +17,8 @@ inputDir = os.path.dirname(args['inputDir'])
 outputDir = args['outputDir']
 outputPDF = args['outputPDF']
 
-print "inputDir = %s\n" % inputDir
-print "outputDir = %s\n" % outputDir
+print("inputDir = %s\n" % inputDir)
+print("outputDir = %s\n" % outputDir)
 
 if (0 == len(inputDir)) or not os.path.isdir(inputDir):
    sys.exit("ERROR!  Input path [%s] is not a directory!!!" % (args['inputDir']))
@@ -32,6 +32,7 @@ if os.path.isdir(outputDir) is False:
 
 files = glob.glob("%s/*.jpg" % inputDir)
 files += glob.glob("%s/*.tif" % inputDir)
+files += glob.glob("%s/*.png" % inputDir)
 
 
 sortedFiles = sorted(files)
@@ -45,10 +46,10 @@ front = 1
 
 for file in sortedFiles:
    try:
-      print "Opening file %s" % file
+      print("Opening file %s" % file)
       srcImg = Image.open(file, mode='r')
       width,height = srcImg.size
-      print "Original image is w=%d h=%d" % (width, height)
+      print("Original image is w=%d h=%d" % (width, height))
 #      srcImg = srcImg.transpose(Image.ROTATE_270)
 #      width,height = srcImg.size
 #      print "Transposed image is w=%d h=%d" % (width, height)
@@ -63,18 +64,25 @@ for file in sortedFiles:
          rightHalfPgNum = currentPage + 1
          currentPage += 2
 
-      print "This should be the %s, and therefore pages %d and %d" % (['BACK', 'FRONT'][front], leftHalfPgNum, rightHalfPgNum)
+      print("This should be the %s, and therefore pages %d and %d" % (['BACK', 'FRONT'][front], leftHalfPgNum, rightHalfPgNum))
 
       leftHalf = srcImg.crop((0,0,width/2,height))
       rightHalf = srcImg.crop((width/2,0,width,height))
+
+      if leftHalf.mode != 'RGB':
+         leftHalf = leftHalf.convert('RGB')
+
+      if rightHalf.mode != 'RGB':
+         rightHalf = rightHalf.convert('RGB')
 
       leftHalf.save("%s/page-%04d.jpg" % (outputDir, leftHalfPgNum))
       rightHalf.save("%s/page-%04d.jpg" % (outputDir, rightHalfPgNum))
       
 #      front = [1, 0][front]
 
-   except:
-      print "Could not load image %s" % file
+   except Exception as e:
+      print("Could not load image %s" % file)
+      print(e)
       exit
       
 if outputPDF is not None:
