@@ -20,9 +20,9 @@ outputDir = args['outputDir']
 outputPDF = args['outputPDF']
 dpi = int(args['dpiStr'])
 
-print "inputDir = %s\n" % inputDir
-print "outputDir = %s\n" % outputDir
-print "dpi = %d\n" % dpi
+print("inputDir = %s\n" % inputDir)
+print("outputDir = %s\n" % outputDir)
+print("dpi = %d\n" % dpi)
 
 if (0 == len(inputDir)) or not os.path.isdir(inputDir):
    sys.exit("ERROR!  Input path [%s] is not a directory!!!" % (args['inputDir']))
@@ -49,7 +49,7 @@ front = 1
 
 for file in sortedFiles:
    try:
-      print "Opening file %s" % file
+      print("Opening file %s" % file)
       srcImg = Image.open(file, mode='r')
       width,height = srcImg.size
 #      print "Original image is w=%d h=%d" % (width, height)
@@ -68,7 +68,7 @@ for file in sortedFiles:
          rightHalfPgNum = tailPage
          tailPage -= 1
 
-      print "This should be the %s, and therefore pages %d and %d" % (['BACK', 'FRONT'][front], leftHalfPgNum, rightHalfPgNum)
+      print("This should be the %s, and therefore pages %d and %d" % (['BACK', 'FRONT'][front], leftHalfPgNum, rightHalfPgNum))
 
       leftHalf = srcImg.crop((0,0,width/2,height))
       rightHalf = srcImg.crop((width/2,0,width,height))
@@ -79,7 +79,7 @@ for file in sortedFiles:
       front = [1, 0][front]
 
    except:
-      print "Could not load image %s" % file
+      print("Could not load image %s" % file)
       exit
       
 if outputPDF is not None:

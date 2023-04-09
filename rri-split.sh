@@ -1,15 +1,15 @@
 #!/bin/bash
 WORKDIR=$1
-mkdir -p /media/sf_E_DRIVE/pcn/$WORKDIR/scans
+mkdir -p /media/sf_E_DRIVE/pcn/$WORKDIR/$WORKDIR
 mkdir -p /media/sf_E_DRIVE/pcn/$WORKDIR/resized-scans
 pushd /media/sf_E_DRIVE/pcn/input/
 for f in *.JPG; do
     mv -- "$f" "${f%.JPG}.jpg"
 done
-mv /media/sf_E_DRIVE/pcn/input/*.jpg /media/sf_E_DRIVE/pcn/$WORKDIR/scans
+mv /media/sf_E_DRIVE/pcn/input/*.jpg /media/sf_E_DRIVE/pcn/$WORKDIR/$WORKDIR
 popd
 
-cp /media/sf_E_DRIVE/pcn/$WORKDIR/scans/*.jpg /media/sf_E_DRIVE/pcn/$WORKDIR/resized-scans
+cp /media/sf_E_DRIVE/pcn/$WORKDIR/$WORKDIR/*.jpg /media/sf_E_DRIVE/pcn/$WORKDIR/resized-scans
 
 pushd /media/sf_E_DRIVE/pcn/$WORKDIR/resized-scans
 mogrify -crop 5100x3250+0+0 -format png *.jpg
