@@ -19,8 +19,8 @@ outputDir = args['outputDir']
 outputPDF = args['outputPDF']
 rotateAngle = int(args['rotate'])
 
-print "inputDir = %s\n" % inputDir
-print "outputDir = %s\n" % outputDir
+print("inputDir = %s\n" % inputDir)
+print("outputDir = %s\n" % outputDir)
 
 if (0 == len(inputDir)) or not os.path.isdir(inputDir):
    sys.exit("ERROR!  Input path [%s] is not a directory!!!" % (args['inputDir']))

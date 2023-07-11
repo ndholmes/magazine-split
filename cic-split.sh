@@ -11,9 +11,9 @@ popd
 
 cp /media/sf_E_DRIVE/pcn/$WORKDIR/$WORKDIR/*.jpg /media/sf_E_DRIVE/pcn/$WORKDIR/resized-scans
 
-convert /media/sf_E_DRIVE/pcn/$WORKDIR/resized-scans/*.jpg -density 300 -quality 75 /media/sf_E_DRIVE/pcn/$WORKDIR/tmp.pdf
-
+python imagesplit.py -r 0 -i /media/sf_E_DRIVE/pcn/$WORKDIR/resized-scans/ -o /media/sf_E_DRIVE/pcn/$WORKDIR/ -p tmp.pdf
 ocrmypdf /media/sf_E_DRIVE/pcn/$WORKDIR/tmp.pdf /media/sf_E_DRIVE/pcn/$WORKDIR/$WORKDIR.pdf
 rm /media/sf_E_DRIVE/pcn/$WORKDIR/tmp.pdf
+rm /media/sf_E_DRIVE/pcn/$WORKDIR/page*.png
 rm -r /media/sf_E_DRIVE/pcn/$WORKDIR/resized-scans
 
